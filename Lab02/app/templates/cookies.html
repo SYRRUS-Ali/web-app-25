@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Cookies{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header text-white">
+        <h2 class="mb-0">Cookies</h2>
+    </div>
+    <div class="card-body">
+        {% if request.cookies %}
+            <table class="table table-striped table-hover mb-4">
+                <thead>
+                    <tr>
+                        <th>Cookie</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in request.cookies.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info mb-4">
+                No cookies found
+            </div>
+        {% endif %}
+
+        <div class="alert alert-{{ 'success' if cookie_action == 'set' else 'warning' }}">
+            {% if cookie_action == 'set' %}
+                Cookie 'flask_lab_cookie' was set with value: {{ cookie_value }}
+            {% else %}
+                Cookie 'flask_lab_cookie' was deleted
+            {% endif %}
+        </div>
+
+        <a href="{{ url_for('cookies') }}" class="btn btn-primary">
+            Refresh page
+        </a>
+    </div>
+</div>
+{% endblock %}

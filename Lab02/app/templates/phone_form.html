@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Phone Validation{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header text-white">
+                <h2 class="mb-0">Phone Number Validation</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('phone_form') }}" novalidate>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" 
+                               class="form-control {% if error %}is-invalid{% endif %}" 
+                               id="phone" 
+                               name="phone" 
+                               value="{{ phone_input }}" 
+                               required>
+                        {% if error %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            Examples: +7 (123) 456-75-90, 8(123)4567590, 123.456.75.90
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Validate</button>
+                </form>
+
+                {% if formatted_phone %}
+                    <div class="alert alert-success mt-4">
+                        <h4 class="alert-heading">Valid phone number!</h4>
+                        <p class="mb-0">Formatted: <strong>{{ formatted_phone }}</strong></p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
