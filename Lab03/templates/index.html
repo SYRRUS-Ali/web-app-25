@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Добро пожаловать</h2>
+    </div>
+    <div class="card-body">
+        {% if current_user.is_authenticated %}
+            <p class="lead">Привет, {{ current_user.id }}! Вы вошли в систему.</p>
+        {% else %}
+            <p class="lead">Вы не авторизованы.</p>
+        {% endif %}
+        <p>Вы посетили эту страницу {{ visits }} раз(а).</p>
+    </div>
+</div>
+{% endblock %}
